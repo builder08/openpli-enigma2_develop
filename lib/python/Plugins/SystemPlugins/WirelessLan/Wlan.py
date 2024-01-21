@@ -4,9 +4,15 @@ from Components.Network import iNetwork
 
 import enigma
 
+from os import system, path as os_path
+import sys
+import re
+import six
+from enigma import eConsoleAppContainer
+
 import os
-from pythonwifi.iwlibs import Wireless, getWNICnames
-from pythonwifi import flags as wififlags
+
+from wifi.scan import Cell
 
 list = []
 list.append("Unencrypted")
@@ -59,7 +65,8 @@ class Wlan:
 		return str.translate(self.asciitrans)
 
 	def getWirelessInterfaces(self):
-		return getWNICnames()
+		device = re.compile('[a-z]{2,}[0-9]*:')
+		ifnames = []
 
 	def setInterface(self, iface=None):
 		self.iface = iface
